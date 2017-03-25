@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			canvas
+			{
+				border: 1px solid black;
+			}
+		</style>
+		
+		<script>
+
+			var ctx;
+			var endPoint = 0;
+			var center_x = 400;
+			var center_y = 400;
+			var radius = 50;
+			var r = 0;
+			var g = 0;
+			var b = 0;
+			
+			function init() {
+				ctx = document.getElementById('canvasya').getContext('2d');																																			
+				
+				for (var i=0; i < 33; i++) {
+					draw1(center_x,center_y,radius,endPoint);				
+					}													
+			}
+						
+			function draw1() {
+									
+				ctx.beginPath();
+				var arc_x = arguments[0]* Math.random();
+				var arc_y = arguments[1]* Math.random();
+				var arc_radius = arguments[2];
+				var startPoint = arguments[3];
+				
+				endPoint = 2 * Math.PI * Math.random();
+				
+				ctx.arc(arc_x, arc_y, arc_radius, startPoint, endPoint, true);
+				
+				var rgbValue = 'rgb(' + r + ',' + g + ',' + b + ')';												
+				
+				ctx.fillStyle = rgbValue;				
+				ctx.fill();
+				ctx.endPath;
+				
+				startPoint = endPoint;	
+				b = nextB(b);
+			}
+			
+			function nextB() {
+			
+				var currB = arguments[0];
+				var nextB = currB + Math.round(255/33);
+				if (nextB > 255)
+					nextB = nextB - 255;
+					
+				return nextB;							
+			}
+		</script>
+		
+	</head>
+
+<body onload="init();">
+	<canvas id="canvasya" width="400px" height="400px"></canvas>
+	<button onclick="init();">Once again</button>
+
+</body>
+
+</html>	
+			

@@ -1,0 +1,82 @@
+@@ -0,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			canvas
+			{
+				border: 1px solid black;
+			}
+		</style>
+		
+		<script>
+
+			var ctx;
+			var endPoint = 0;
+			var center_x = 400;
+			var center_y = 400;
+			var arc_radius = 50;
+			var r = 0;
+			var g = 0;
+			var b = 0;
+			
+			function init() {
+				ctx = document.getElementById('canvasya').getContext('2d');																																			
+				
+				for (var i=0; i < 33; i++) {
+					drawRandomArc();				
+					}													
+			}
+						
+			function drawRandomArc() {
+													
+//				document.write(center_x);
+				
+				var arc_x = center_x * Math.random();
+				var arc_y = center_y * Math.random();
+				
+				var startPoint = Math.PI * Math.random();
+				var endPoint = 2 * Math.PI * Math.random();
+								
+				
+				ctx.beginPath();
+				ctx.arc(arc_x, arc_y, arc_radius, startPoint, endPoint, true);				
+				
+				var rgbValue = 'rgb(' + r + ',' + g + ',' + b + ')';												
+				
+				ctx.fillStyle = rgbValue;				
+				ctx.fill();
+				ctx.endPath;
+				
+				b = nextB(b);
+			}
+			
+			function nextB() {
+			
+				var currB = arguments[0];
+				var nextB = currB + Math.round(255/33);
+				if (nextB > 255)
+					{ nextB = nextB - 255; }
+					
+				return nextB;							
+			}
+			
+			function clean() {
+				ctx.clearRect(0,0,400,400);
+			}
+		</script>
+		
+	</head>
+
+<body onload="init();">
+	<canvas id="canvasya" width="400px" height="400px"></canvas>
+	<br/>
+	<button onclick="init();">Once again</button>
+	<br/>
+	<button onclick="clean();">Clean it</button>
+
+</body>
+
+</html>	
+			
+\ No newline at end of file

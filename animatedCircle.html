@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- coding example from: https://www.kirupa.com/html5/creating_simple_html5_canvas_animation.htm -->
+<!-- added there slower & Faster buttons, not the best, but zoow.. -->
+<html>
+  
+<head>
+<title>Simple Canvas Animation Example</title>
+
+<style>
+canvas {
+    border: 3px #CCC solid;
+}
+button {
+    border: 3px #CCC solid;
+}
+</style>
+</head>
+ 
+<body>
+<div id="container">
+    <canvas id="myCanvas" height="450" width="450"></canvas>
+	<br/>
+	<p>
+		<button style="padding-left: 180px" id='button_slower' onclick="slowerslower();">Slower</button>
+		<button style="padding-right: 172px"id='button_faster' onclick="fasterfaster();">Faster</button>  
+	</p>
+
+</div>
+<script>
+var mainCanvas = document.querySelector("#myCanvas");
+var mainContext = mainCanvas.getContext("2d");
+ 
+var canvasWidth = mainCanvas.width;
+var canvasHeight = mainCanvas.height;
+
+var angle = 0;
+
+var speed = 128;
+
+var btn = document.querySelector('#button_slower');
+btn.addEventListener('click',slowerslower);
+
+var btn = document.querySelector('#button_faster');
+btn.addEventListener('click',fasterfaster);
+
+var requestAnimationFrame = window.requestAnimationFrame || 
+                            window.mozRequestAnimationFrame || 
+                            window.webkitRequestAnimationFrame || 
+                            window.msRequestAnimationFrame; 
+ 
+function drawCircle() {
+ mainContext.clearRect(0, 0, canvasWidth, canvasHeight);
+     
+    // color in the background
+    mainContext.fillStyle = "#EEEEEE";
+    mainContext.fillRect(0, 0, canvasWidth, canvasHeight);
+     
+    // draw the circle
+    mainContext.beginPath();
+         
+	var radius = 25 + 150 * Math.abs(Math.cos(angle));
+    mainContext.arc(225, 225, radius, 0, Math.PI * 2, false);
+    mainContext.closePath();
+     
+    // color in the circle
+    mainContext.fillStyle = "#006699";
+    mainContext.fill();
+	
+	angle += Math.PI / speed;
+
+	requestAnimationFrame(drawCircle);
+
+}
+drawCircle();
+
+/*                */
+function slowerslower() {
+	speed = speed + 10;
+}
+
+function fasterfaster() {
+	speed = speed - 10;
+}
+
+
+</script>
+</body>
+</html>
